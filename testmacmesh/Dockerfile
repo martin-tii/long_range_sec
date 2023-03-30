@@ -14,12 +14,18 @@ RUN apt install net-tools iproute2 git pkg-config make gcc bison flex sudo kmod 
 #RUN apt install --reinstall linux-modules-extra-$(uname -r) -y;
 
 
-COPY all iproute2
+COPY all all
+WORKDIR all
 
-RUN cd  all/iproute2 && ./configure #&& make && make install && sudo modprobe macsec
-RUN make -C all/iproute2
-RUN make install -C all/iproute2
-#RUN modprob macsec
-RUN insmod all/macsec.ko
+RUN cd  iproute2 && ./configure #&& make && make install && sudo modprobe macsec
+RUN make -C iproute2
+RUN make install -C iproute2
+#RUN insmod macsec.ko
 
-CMD ["bash"]
+COPY variables.conf variables.conf
+COPY run_macsec.sh run_macsec.sh
+
+ENTRYPOINT ["./run_macsec.sh"]
+
+
+#CMD ["bash"]
