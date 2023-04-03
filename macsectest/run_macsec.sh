@@ -38,11 +38,11 @@ configure_mac_sec()
   ip link set "$interface" up
   ip link add link "$interface" macsec0 type macsec encrypt on
 
-  if [[ "role" == "primary" ]]
+  if [[ "$role" == "primary" ]]
   then
     ip macsec add macsec0 tx sa 0 pn 1 on key 01 "$key1"
     ip macsec add macsec0 rx port 1 address "$macseco"
-    ip macsec add macsec0 rx port 1 address "$macseco" sa 0 pn 1 on key 01 "$key2"
+    ip macsec add macsec0 rx port 1 address "$macseco" sa 0 pn 1 on key 02 "$key2"
   else
     ip macsec add macsec0 tx sa 0 pn 1 on key 01 "$key2"
     ip macsec add macsec0 rx port 1 address "$macprim"
