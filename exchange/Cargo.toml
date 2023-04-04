@@ -1,0 +1,11 @@
+[package]
+name = "exchange"
+version = "1.0.0"
+authors = ["Bill"]
+edition = "2018"
+
+[dependencies]
+p256={version = "0.13.0", features = ["ecdh"]} 
+hex="0.4.3"
+rand_core="0.6.3"
+config = "0.13.3"
